@@ -1,0 +1,5 @@
+# name:
+# key: rdb
+# --
+
+from celery.contrib import rdb; rdb.set_trace()

@@ -1,0 +1,4 @@
+# name: if name is main
+# key: ifmain
+# --
+if __name__ == "__main__":

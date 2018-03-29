@@ -1,0 +1,4 @@
+# name: simple snippets to expand out debug commands
+# key: pdb
+# --
+import pdb; pdb.set_trace()

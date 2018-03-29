@@ -1,0 +1,4 @@
+# name: simple snippet to exit code
+# key: exit
+# --
+import sys; sys.exit()
