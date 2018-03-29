@@ -1,0 +1,7 @@
+[user]
+	name = Craig Booth
+	email = cbooth@narrativescience.com
+[alias]
+	co = checkout
+	cob = checkout -b
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
