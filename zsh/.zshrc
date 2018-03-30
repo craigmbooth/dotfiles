@@ -1,3 +1,8 @@
+if [ -z "$TMUX" ]
+then
+    tmux attach -t TMUX || tmux new -s TMUX
+fi
+
 source $HOME/.zshrc.secret
 
 # Path to your oh-my-zsh installation.
