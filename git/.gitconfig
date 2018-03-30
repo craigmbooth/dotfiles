@@ -2,6 +2,7 @@
 	name = Craig Booth
 	email = cbooth@narrativescience.com
 [alias]
+        cm = commit -m 
 	co = checkout
 	cob = checkout -b
         d = diff
