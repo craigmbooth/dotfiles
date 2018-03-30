@@ -5,3 +5,5 @@
 	co = checkout
 	cob = checkout -b
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+        la = "!git config -l | grep alias | cut -c 7-"
+    
