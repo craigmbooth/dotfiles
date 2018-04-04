@@ -11,6 +11,7 @@
     ace-jump-mode
     guru-mode
     python-mode
+    groovy-mode
     markdown-mode
     php-mode
     autopair
