@@ -23,3 +23,8 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s`
     ssh-add
 fi
+
+# pyenv setup
+export PATH="/home/cbooth/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
