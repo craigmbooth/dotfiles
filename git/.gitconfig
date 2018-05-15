@@ -1,6 +1,6 @@
 [user]
 	name = Craig Booth
-	email = cbooth@narrativescience.com
+	email = craig@packback.co
 [alias]
         cm = commit -m 
 	co = checkout
