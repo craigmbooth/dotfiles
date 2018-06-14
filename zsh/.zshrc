@@ -6,6 +6,9 @@ fi
 # All environment variables and the like that I don't want on github
 source $HOME/.zshrc.secret
 
+# Default editor
+export EDITOR="emacs -nw"
+
 # ZSH and oh-my-zsh
 export ZSH=$HOME/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
@@ -28,3 +31,6 @@ fi
 export PATH="/home/cbooth/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
