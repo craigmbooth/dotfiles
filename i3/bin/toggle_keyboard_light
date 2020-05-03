@@ -1,0 +1,23 @@
+#!/bin/bash
+# Script that switches on and off the keyboard light on my Thinkpad
+
+backlight_set() {
+    value="$1"
+    dbus-send --type=method_call --print-reply=literal --system       \
+        --dest='org.freedesktop.UPower'                               \
+        '/org/freedesktop/UPower/KbdBacklight'                        \
+        'org.freedesktop.UPower.KbdBacklight.SetBrightness'           \
+        "int32:${value}}"
+}
+
+backlight_get() {
+    cat /sys/class/leds/tpacpi::kbd_backlight/brightness
+}
+
+current_backlight=$(backlight_get)
+
+if (( $current_backlight > 0 )); then
+    backlight_set 0
+else
+    backlight_set 2
+fi

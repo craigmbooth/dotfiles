@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+get_display_info() {
+  local device=$1
+  local key=$2
+  echo $(xrandr --verbose | grep -m 1 -w "$device connected" -A8 | \
+         grep $key | cut -f2- -d: | tr -d " ")
+}
+
+device=$1
+operator=$2
+
+current_brightness=$(get_display_info $device Brightness)
+new_brightness=$(python -c "print(max([0.1, min([2.0, $current_brightness $operator 0.15])]))")
+
+xrandr --output $device --brightness $new_brightness
+notify-send -t 800 "Screen brightness: $new_brightness"
