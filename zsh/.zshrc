@@ -1,8 +1,3 @@
-if [ -z "$TMUX" ]
-then
-    tmux attach -t TMUX || tmux new -s TMUX
-fi
-
 # All environment variables and the like that I don't want on github
 source $HOME/.zshrc.secret
 
@@ -17,20 +12,20 @@ ZSH_THEME="kphoen"
 plugins=(jsontools pip)
 source $ZSH/oh-my-zsh.sh
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/Users/cbooth/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/home/cbooth/bin:"
 export HISTCONTROL=ignoreboth:erasedups
 
+export PATH=$PATH:/home/cbooth/.rvm/gems/ruby-2.4.1/bin/
+
+alias gprune=" git fetch --prune; git branch --merged | grep -v '*' | xargs git branch -d"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/cbooth/google-cloud-sdk/path.zsh.inc' ]; then . '/home/cbooth/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/cbooth/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/cbooth/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Custom aliases
+alias mario='mednafen /home/cbooth/Emulation/Famicom/Super\ Mario\ Bros\ \(E\).nes'
 alias en="emacs -nw"
-
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-    eval `ssh-agent -s`
-    ssh-add
-fi
-
-# pyenv setup
-export PATH="/home/cbooth/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+alias gbc="git log --format='%s  %h  %ae' $(git tag -l '1.*.0' | tail -n 1)..HEAD | grep -v -E '^(Merge|Revert)' | grep -v -E '^(DEV|SRE|DATA)-[0-9]+'"
