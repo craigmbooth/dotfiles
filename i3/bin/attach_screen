@@ -1,7 +1,12 @@
 #!/bin/bash
-
 # First argument: Primary monitor
 # Second argument: Secondary monitor
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage:  attach_screen <primary> <secondary>"
+    exit 1
+fi
+
 if  xrandr | grep "$2 d"; then
     xrandr --output "$2" --off
 else

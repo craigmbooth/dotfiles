@@ -1,10 +1,18 @@
 #!/bin/bash
+# Script takes a screenshot, pixelates it, composites a lock in the middle, and then
+# uses it to lock the screen
+img="/tmp/screen_locked.png"
 
-# Take a screenshot
-scrot /tmp/screen_locked.png
+scrot $img
 
-# Pixellate it 10x
-mogrify -scale 10% -scale 1000% /tmp/screen_locked.png
+mogrify -scale 10% -scale 1000% $img
 
-# Lock screen displaying this image.
-i3lock -i /tmp/screen_locked.png
+if  xrandr | grep "HDMI-1 d"; then
+    # If there is only one screen attached
+    convert $img -gravity center ~/Images/screen_locked.png  -composite $img
+else
+    convert $img ~/Images/screen_locked.png -gravity center -geometry +960-0 -composite $img
+    convert $img ~/Images/screen_locked.png -gravity center -geometry -960-0 -composite $img
+fi
+    
+i3lock -i $img
