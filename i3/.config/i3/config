@@ -130,7 +130,7 @@ bar {
 # Make mod-l lock the screen, and switch on xautolock to lock after 5 minutes
 # corners 000- makes putting the mouse in the bottom-right corner suspend locking
 bindsym $mod+l exec ~/bin/lock_screen
-exec_always xautolock -time 5 -corners 000- -locker '~/bin/lock_screen'
+exec_always xautolock -time 10 -corners 000- -locker '~/bin/lock_screen'
 
 #
 # Miscellaneous Commands
@@ -155,13 +155,14 @@ bindsym XF86KbdLightOnOff exec --no-startup-id toggle_keyboard_light
 
 # names of custom workspaces
 set $ws1 "1: Terminals"
+set $ws2 "2: Browsers"
 set $ws7 "7: Personal"
 set $ws8 "8: Slack"
 set $ws9 "9: Spotify"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace 2
+bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
@@ -173,7 +174,7 @@ bindsym $mod+0 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
