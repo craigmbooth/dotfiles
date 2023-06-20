@@ -143,13 +143,10 @@ exec --no-startup-id clipit
 # Re-bind Custom Buttons
 # n.b. best hint for debugging these commands is to run the command in isolation
 #      to first ensure that the command works.  Errors are silently swallowed
-#
-#      also, the list-sinks part of the command finds the speaker ID in the system,
-#      which is usually 1, but can change when processes restart
 bindsym XF86Display exec --no-startup-id ~/bin/attach_screen eDP-1 HDMI-2
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks | grep index | sed 's/[^0-9]*//g') +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks | grep index | sed 's/[^0-9]*//g') -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $(pacmd list-sinks | grep index | sed 's/[^0-9]*//g') toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(get_speaker_number) +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(get_speaker_number) -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $(get_speaker_number) toggle # mute sound
 bindsym XF86AudioMicMute exec --no-startup-id amixer set Capture toggle # mute Mic
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/bin/change_brightness eDP-1 -
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/bin/change_brightness eDP-1 +

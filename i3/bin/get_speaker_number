@@ -1,0 +1,6 @@
+#!/bin/bash
+# Use pacmd to get the ID of hte active speaker on the system, which is the one
+# identified by an asterisk in front of its index in the output of list-sinks.
+
+export SPEAKER_NUMBER=$(pacmd list-sinks | grep "* index" | sed 's/[^0-9]*//g')
+echo $SPEAKER_NUMBER

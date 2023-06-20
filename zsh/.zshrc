@@ -1,10 +1,7 @@
-# All environment variables and the like that I don't want on github
-source $HOME/.zshrc.secret
-
 # Default editor
 export EDITOR="nano"
 
-# ZSH and oh-my-zsh
+# # ZSH and oh-my-zsh
 export ZSH=$HOME/.oh-my-zsh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -22,11 +19,9 @@ eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
 # Custom aliases
-alias gbc="git log --format='%s  %h  %ae' $(git tag -l '1.*.0' | tail -n 1)..HEAD | grep -v -E '^(Merge|Revert)' | grep -v -E '^(DEV|SRE|DATA)-[0-9]+'"
 alias gprune="git fetch --prune; git branch --merged | grep -v '*' | xargs git branch -d"
 alias fixaudio="pulseaudio -k && sudo alsa force-reload"
 alias fixscreen="$HOME/bin/attach_screen eDP-1 HDMI-2"
-alias speakerid="pacmd list-sinks | grep index | sed 's/[^0-9]*//g'"
 
 # Install Ruby Gems to ~/gems
 export GEM_HOME="$HOME/gems"
@@ -47,3 +42,25 @@ if [ -f '/home/craig/pb/questions/backend/analytics-api/google-cloud-sdk/path.zs
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/craig/pb/questions/backend/analytics-api/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/craig/pb/questions/backend/analytics-api/google-cloud-sdk/completion.zsh.inc'; fi
+
+find_ssh_agent_pid() {
+    pgrep -u "$USER" ssh-agent
+}
+
+# Check if SSH agent is already running
+if [[ -n "$SSH_AGENT_PID" && -e "/proc/$SSH_AGENT_PID" ]]; then
+    echo "SSH agent is already running with PID $SSH_AGENT_PID"
+else
+    agent_pid=$(find_ssh_agent_pid)
+    if [[ -n "$agent_pid" ]]; then
+        echo "Using existing SSH agent with PID $agent_pid"
+        export SSH_AGENT_PID="$agent_pid"
+        export SSH_AUTH_SOCK=$(find "/tmp" -path "*/ssh-*" -name "agent.3386" -print 2>/dev/null)
+    else
+        echo "Starting new SSH agent"
+        eval "$(ssh-agent -s)"
+    fi
+fi
+
+# # All environment variables and the like that I don't want on github
+source $HOME/.zshrc.secret
