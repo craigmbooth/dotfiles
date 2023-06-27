@@ -9,7 +9,7 @@ ZSH_THEME="kphoen"
 plugins=(jsontools pip jira)
 source $ZSH/oh-my-zsh.sh
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/home/cbooth/bin:/home/cbooth/.local:/snap/bin/"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/home/craig/bin:/home/craig/.local/bin:/snap/bin/:/usr/local/bin/google-cloud-sdk/bin"
 export HISTCONTROL=ignoreboth:erasedups
 
 # Stuff put here by pyenv
@@ -21,7 +21,7 @@ eval "$(pyenv virtualenv-init -)"
 # Custom aliases
 alias gprune="git fetch --prune; git branch --merged | grep -v '*' | xargs git branch -d"
 alias fixaudio="pulseaudio -k && sudo alsa force-reload"
-alias fixscreen="$HOME/bin/attach_screen eDP-1 HDMI-2"
+alias fixscreen="$HOME/bin/attach_screen eDP-1 HDMI-1"
 
 # Install Ruby Gems to ~/gems
 export GEM_HOME="$HOME/gems"
@@ -37,30 +37,31 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/craig/pb/questions/backend/analytics-api/google-cloud-sdk/path.zsh.inc' ]; then . '/home/craig/pb/questions/backend/analytics-api/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/craig/pb/questions/backend/analytics-api/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/craig/pb/questions/backend/analytics-api/google-cloud-sdk/completion.zsh.inc'; fi
-
 find_ssh_agent_pid() {
     pgrep -u "$USER" ssh-agent
 }
-
 # Check if SSH agent is already running
 if [[ -n "$SSH_AGENT_PID" && -e "/proc/$SSH_AGENT_PID" ]]; then
     echo "SSH agent is already running with PID $SSH_AGENT_PID"
+    export SSH_AUTH_SOCK=$(find "/tmp" -path "*/ssh-*" -type s -print 2>/dev/null)
 else
     agent_pid=$(find_ssh_agent_pid)
     if [[ -n "$agent_pid" ]]; then
         echo "Using existing SSH agent with PID $agent_pid"
         export SSH_AGENT_PID="$agent_pid"
-        export SSH_AUTH_SOCK=$(find "/tmp" -path "*/ssh-*" -name "agent.3386" -print 2>/dev/null)
+        export SSH_AUTH_SOCK=$(find "/tmp" -path "*/ssh-*" -type s -print 2>/dev/null)
     else
         echo "Starting new SSH agent"
         eval "$(ssh-agent -s)"
     fi
 fi
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/usr/local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/usr/local/bin/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/usr/local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/usr/local/bin/google-cloud-sdk/completion.zsh.inc'; fi
 
 # # All environment variables and the like that I don't want on github
 source $HOME/.zshrc.secret
