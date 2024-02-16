@@ -1,0 +1,16 @@
+{
+    "workbench.colorTheme": "Default Dark Modern",
+    "editor.inlineSuggest.enabled": true,
+    "files.trimTrailingWhitespace": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": true,
+        "scminput": false
+    },
+    "git.openRepositoryInParentFolders": "always",
+    "remote.SSH.defaultExtensions": [
+        "gitpod.gitpod-remote-ssh"
+    ],
+    "editor.fontFamily": "'Berkeley Mono Variable'"
+}

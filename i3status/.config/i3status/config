@@ -14,15 +14,15 @@ order += "volume master"
 order += "tztime local"
 
 wireless wlp0s20f3 {
-        format_up = "📶 %essid (%quality@%bitrate) %ip"
-        format_down = "📶 down"
+        format_up = "WiFi: %essid (%quality@%bitrate) %ip"
+        format_down = "WiFi: down"
 }
 
 battery 0 {
         format = "%status %percentage %remaining"
         format_down = "No battery"
         status_chr = "⚡"
-        status_bat = "🔋"
+        status_bat = "⚠"
         status_unk = "?"
         status_full = "☻"
         path = "/sys/class/power_supply/BAT%d/uevent"
@@ -33,7 +33,7 @@ volume master {
 	device = "default"
 	mixer = "Master"
 	mixer_idx = 0
-	format = "🔊 %volume "
+	format = "Vol.: %volume "
 }
 
 disk "/" {
@@ -41,5 +41,5 @@ disk "/" {
 }
 
 tztime local {
-  format = "🕐 %h-%d %H:%M"
+  format = "%h-%d %H:%M"
 }
