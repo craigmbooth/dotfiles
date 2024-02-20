@@ -20,7 +20,7 @@ eval "$(pyenv virtualenv-init -)"
 
 # Custom aliases
 alias gprune="git fetch --prune; git branch --merged | grep -v '*' | xargs git branch -d"
-alias fixaudio="systemctl --user restart pipewire-session-manager"
+alias fixaudio="systemctl --user restart pipewire pipewire-pulse"
 alias fixscreen="$HOME/bin/attach_screen eDP-1 HDMI-1"
 
 # Install Ruby Gems to ~/gems

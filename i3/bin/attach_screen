@@ -10,7 +10,18 @@ fi
 if  xrandr | grep "$2 d"; then
     xrandr --output "$2" --off
 else
-    xrandr --output "$2" --auto
-    xrandr --output "$2" --above "$1"
+    #     (virtual screen coordinates)
+    #      0       1366                 1366+1920
+    #
+    #    0           A-----------------------
+    #                |                      |
+    #                |                      |
+    #                |                      |
+    #   x? B---------|         "$2"         |
+    #      |         |                      |
+    #      |   $1    |       1920x1080      |
+    #      |1366x768 |                      |
+    # 1080 ----------------------------------
+    xrandr --output "$2" --auto --pos 0x0 --output "$1" --auto --pos 760x1440
 fi
 
